@@ -1,0 +1,41 @@
+@use "../../scss/abstracts/" as *;
+.summary__box {
+  margin: 0 1rem 1.8rem;
+  flex: 1 1 220px;
+
+  &__wrapper {
+    @include flex();
+    margin: 1rem 0;
+    flex: 1;
+    flex-wrap: wrap;
+    // background-color: aqua;
+  }
+
+  &__icon {
+    margin: 0 1rem;
+  }
+  &__info__amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 0.3rem;
+    flex-wrap: wrap;
+    text-align: center;
+    // background-color: brown;
+    & h4 {
+      margin-top: 1rem;
+      font-size: 36px;
+      font-weight: 600;
+      white-space: nowrap;
+      color: #000;
+    }
+
+    & sup {
+      font-size: $fontSizeBodyLarge;
+      color: #565656;
+      font-weight: 600;
+    }
+  }
+}

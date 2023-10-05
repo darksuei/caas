@@ -1,0 +1,22 @@
+.alert {
+    // margin-top: 0.7rem;
+    margin: 0 auto;
+    width: 96%;
+    height: 1.25rem;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-size: 0.9rem;
+    border-radius: 0.25rem;
+    letter-spacing: 0.1rem;
+    // background-color: #155724;
+    text-transform: capitalize;
+  }
+  .alert-danger {
+    color: #721c24;
+    background: #f8d7da;
+  }
+  .alert-success {
+    color: #155724;
+    background: #d4edda;
+  }

@@ -1,0 +1,35 @@
+@use "../../../scss/abstracts/" as *;
+
+.card {
+  @include flex(stretch, flex-start);
+  background-color: #fff;
+  border-radius: $smallBorderRadius;
+  box-shadow: $mainBoxShadow;
+  padding: 2rem 1rem;
+  flex: 1;
+  overflow: auto;
+  max-width: 2000px;
+
+  &::-webkit-scrollbar {
+    height: 0.6rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--bgc);
+    margin-block: 0.5rem;
+    border-radius: 100vw;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primaryColor);
+    background-color: rgba(0, 0, 128, 0.5);
+    border-radius: 100vw;
+  }
+
+  @supports (scrollbar-calor: var(--primaryColor) var(--secondaryColor)) {
+    * {
+      scrollbar-color: var(--bgc) var(--primaryColor);
+      scrollbar-width: auto;
+    }
+  }
+}

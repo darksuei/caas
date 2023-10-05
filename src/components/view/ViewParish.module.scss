@@ -1,0 +1,100 @@
+@use "../../scss/abstracts/" as *;
+
+.view__container {
+  @include flex();
+  align-items: unset;
+  flex-wrap: wrap;
+//   background-color: aquamarine;
+}
+
+.view__left,
+.view__right {
+    flex: 1;
+    min-width: 450px;
+    max-width: 600px;
+    margin: 1rem;
+    height: 20vh;
+  @media screen and (max-width: 1210px) {
+    margin-top: 2rem;
+  }
+  @media screen and (max-width: 550px) {
+    min-width: 350px;
+  }
+  @media screen and (max-width: 330px) {
+    min-width: 260px;
+  }
+}
+
+.view__left{
+    position: relative;
+    .editButton{
+        background-color: #0000803f;
+        border-radius: 0 8px 0 0;
+        color: navy;
+        cursor: pointer;
+        font-size: 12px;
+        padding: 7px;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .userShowTop{
+        display: flex;
+        align-items: center;
+
+        .userShowImg{
+            border-radius: 50%;
+            height: 40px;
+            object-fit: cover;
+            width: 40px;
+        }
+
+        .userShowTopTitle{
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+
+            .userShowUsername{
+                font-weight: 900;
+                text-transform: uppercase;
+            }
+            
+            .userShowUserTitle{
+                text-transform: capitalize;
+                font-weight: 400;
+            }
+        }
+    } 
+
+    .userShowBottom{
+        margin-top: 20px;
+        .fr_mobile_flex{
+
+            .userShowTitle{
+                color: #abaaaa;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .userShowInfo{
+                align-items: center;
+                color: #444;
+                display: flex;
+                margin: 20px 0;
+
+                .userShowInfoTitle{
+                    margin-left: 10px;
+                }
+            }
+            
+        }
+    }
+}
+
+.view__right {
+    flex: 3; /* Increase the flex value to make .view__left flex more */
+    /* Rest of your styles for .view__left */
+}
+
+.view__right{
+    // background-color: aqua;
+}
