@@ -7,12 +7,13 @@ import Button from "../UI/button/Button";
 import classes from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-const LoginBox = () => {
+const SignupBox = () => {
   const loginCtx = useContext(LoginContext);
   const userNameRef = useRef<HTMLInputElement>(null);
+  const userEmailRef = useRef<HTMLInputElement>(null);
   const errorMessageRef = useRef<HTMLSpanElement>(null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -21,36 +22,38 @@ const LoginBox = () => {
     password: "",
   });
 
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   let isValid = true;
 
-  async function loginHandler(e: React.FormEvent) {
+  async function registerHandler(e: React.FormEvent) {
     e.preventDefault();
     const { data, status } = await axios.post(
-      `http://localhost:5000/api/user`,
+      `http://localhost:5000/api/new_user`,
       formData
     );
     console.log(data);
-    if (status !== 201 && status !== 200) {
+    if (status !== 201) {
       toast.error(data.message);
     } else {
-      toast.success(data);
-      loginCtx.toggleLogin();
-      navigate("/");
+      toast.success(data.message);
+      navigate("/login");
     }
-
-    /*isValid = userNameRef.current?.value === "caas";
-    if (userNameRef.current) {
-      if (isValid) {
-        loginCtx.toggleLogin();
-        navigate("/");
-      } else {
-        userNameRef.current.focus();
-        errorMessageRef.current?.setAttribute(
-          "style",
-          "display: inline-block;opacity: 1"
-        );
-      }
-    } */
+    // isValid = userNameRef.current?.value === "caas";
+    // if (userNameRef.current) {
+    //   if (isValid) {
+    //     loginCtx.toggleLogin();
+    //     navigate("/");
+    //   } else {
+    //     userNameRef.current.focus();
+    //     errorMessageRef.current?.setAttribute(
+    //       "style",
+    //       "display: inline-block;opacity: 1"
+    //     );
+    //   }
+    // }
   }
 
   return (
@@ -59,20 +62,29 @@ const LoginBox = () => {
         <div className={classes.logo}>
           <img src={images.logo} alt="digikala" />
         </div>
-        <h2 className={classes.title}>Login</h2>
-        <form onSubmit={loginHandler}>
+        <h2 className={classes.title}>Register</h2>
+        <form onSubmit={registerHandler}>
           <Input
             ref={userNameRef}
+            type={"text"}
+            id={"Org Name"}
+            placeholder={"Organization Name"}
+            name="name"
+            isRequired={true}
+            setFormData={setFormData}
+          />
+          <Input
+            ref={userEmailRef}
             type={"email"}
             id={"Email"}
-            placeholder={"John@doe.org"}
+            placeholder={"Email"}
             name="email"
             isRequired={true}
             setFormData={setFormData}
           />
-          <span ref={errorMessageRef} className={classes.errorMessage}>
+          {/* <span ref={errorMessageRef} className={classes.errorMessage}>
             {"Enter a valid email"}
-          </span>
+          </span> */}
           <Input
             type={"password"}
             id={"Password"}
@@ -81,7 +93,7 @@ const LoginBox = () => {
             isRequired={true}
             setFormData={setFormData}
           />
-          <Button type={"submit"}>Login</Button>
+          <Button type={"submit"}>Submit</Button>
           <Link className={classes.forgat_pass} to="/">
             {"Forgot password?"}
           </Link>
@@ -91,4 +103,4 @@ const LoginBox = () => {
   );
 };
 
-export default LoginBox;
+export default SignupBox;

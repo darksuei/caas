@@ -2,6 +2,12 @@ import React, { useImperativeHandle, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import classes from "./Input.module.scss";
 
+interface formDataType {
+  name: string;
+  email: string;
+  password: string;
+}
+
 interface Props {
   id: string;
   type: string;
@@ -14,6 +20,9 @@ interface Props {
   readonly?: boolean;
   autocomplete?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  isRequired?: boolean;
+  setFormData?: React.Dispatch<React.SetStateAction<formDataType>>;
 }
 
 interface IImperativeHandler {
@@ -24,8 +33,16 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = useState(props.value || "");
 
-  function inputChangeHandler(e: React.FormEvent<HTMLInputElement>) {
+  function inputChangeHandler(e: any) {
     setValue(e.currentTarget.value);
+    if (props.setFormData) {
+      props.setFormData((prev) => {
+        return {
+          ...prev,
+          [e.target.name]: e.target.value,
+        };
+      });
+    }
   }
 
   function inputFocused() {
@@ -39,7 +56,7 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
       value: value,
     };
   });
-  
+
   const { t } = useTranslation();
   return (
     <div className={`${classes.form__control} ${props.classes}`}>
@@ -53,8 +70,10 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
         placeholder={props.placeholder}
         value={value}
         readOnly={props.readonly || false}
-        onChange={inputChangeHandler}
+        onChange={props.onChange || inputChangeHandler}
         autoComplete={props.autocomplete || "off"}
+        name={props.name}
+        {...(props.isRequired ? { required: true } : {})}
       />
     </div>
   );
